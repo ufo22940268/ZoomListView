@@ -18,17 +18,19 @@ A listView has a header which will enlarge when you overscroll listView.
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-        ```
+```
 
 *Set image view background*
 
 ```java
-        listView.setHeaderResource(R.drawable.demo);```
+        listView.setHeaderResource(R.drawable.demo);
+```
 
 *Add header content view*
 ```java
         View view = getLayoutInflater().inflate(R.layout.header_container, listView.getHeaderView(), false);
-        listView.setHeaderContentView(view);```
+        listView.setHeaderContentView(view);
+```
 
 
 ##Customization
