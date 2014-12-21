@@ -6,27 +6,41 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 
-import com.bettycc.zoomlistview.library.HeaderContainer;
-
 /**
  * Created by ccheng on 12/19/14.
  */
 public class ZoomListView extends ListView {
 
     private static final float SCALE_FACTOR = 0.4f;
-    private final HeaderContainer mHeaderView;
+    private HeaderContainer mHeaderView;
     private int mActionIndexId;
     private float mLastMotionY;
     private float mLastBottom;
 
+    private Type mType;
+    private AttributeSet mAttrs;
+
+    enum Type {
+        Single, Multi
+    }
+
     public ZoomListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mHeaderView = new HeaderContainer(getContext(), attrs);
-        addHeaderView(mHeaderView);
+        mAttrs = attrs;
     }
 
     public void setHeaderResource(int resId) {
-        mHeaderView.setImageResource(resId);
+        mType = Type.Single;
+        mHeaderView = new HeaderContainer(getContext(), mAttrs);
+        addHeaderView(mHeaderView);
+        mHeaderView.setImageResource(mHeaderView.getBgView(), resId);
+    }
+
+    public void setHeaderResources(int[] resIds) {
+        mType = Type.Multi;
+        mHeaderView = new PagerHeaderContainer(getContext(), mAttrs);
+        addHeaderView(mHeaderView);
+        mHeaderView.setImageResources(resIds);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         ZoomListView listView = (ZoomListView) findViewById(R.id.list);
-        listView.setHeaderResource(R.drawable.demo);
+        listView.setHeaderResources(new int[]{R.drawable.demo, R.drawable.demo1});
         View view = getLayoutInflater().inflate(R.layout.header_container, listView.getHeaderView(), false);
         listView.setHeaderContentView(view);
         listView.setAdapter(new BaseAdapter() {

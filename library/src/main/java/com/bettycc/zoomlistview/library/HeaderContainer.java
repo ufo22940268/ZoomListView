@@ -20,8 +20,8 @@ import com.nineoldandroids.animation.ValueAnimator;
 public class HeaderContainer extends FrameLayout {
 
     private final ImageView mBgView;
-    private int mInitWidth;
-    private int mInitHeight;
+    protected int mInitWidth;
+    protected int mInitHeight;
     private float mScale = 1.0f;
     private ValueAnimator mRestoreAnimator;
     private Matrix mMatrix;
@@ -36,21 +36,22 @@ public class HeaderContainer extends FrameLayout {
         mInitHeight = typedArray.getDimensionPixelSize(R.styleable.ZoomListView_headerHeight, 0);
         typedArray.recycle();
 
-        mBgView = new ImageView(getContext());
-        mBgView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        addView(mBgView);
-    }
-
-    public void setImageResource(int resId) {
-        mBgView.setImageResource(resId);
-
         mInitWidth = getResources().getDisplayMetrics().widthPixels;
         if (mInitHeight == 0) {
             mInitHeight = (int) (mInitWidth * 0.6);
         }
-        mBgView.setScaleType(ImageView.ScaleType.MATRIX);
+
+        mBgView = new ImageView(getContext());
+        getBgView().setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        addView(getBgView());
+    }
+
+    public void setImageResource(ImageView bgView, int resId) {
+        bgView.setImageResource(resId);
+
+        bgView.setScaleType(ImageView.ScaleType.MATRIX);
         mMatrix = new Matrix();
-        mBgView.setImageMatrix(mMatrix);
+        bgView.setImageMatrix(mMatrix);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
         mBitmapWidth = bitmap.getWidth();
@@ -72,7 +73,7 @@ public class HeaderContainer extends FrameLayout {
         float ty = (mBitmapHeight * scale - mInitHeight) / 2;
         matrix.postTranslate(-tx, -ty);
 
-        mBgView.setImageMatrix(matrix);
+        getBgView().setImageMatrix(matrix);
     }
 
     private void updateLayoutParams(int initWidth, int initHeight) {
@@ -119,5 +120,13 @@ public class HeaderContainer extends FrameLayout {
 
     public boolean isScaled() {
         return getScale() != mInitScale;
+    }
+
+    public ImageView getBgView() {
+        return mBgView;
+    }
+
+    public void setImageResources(int[] resIds) {
+        throw new UnsupportedOperationException();
     }
 }
