@@ -1,6 +1,7 @@
 #ZoomListView
 
 A listView has a header which will enlarge when you overscroll listView.
+The header image section can be a normal image and it can also set as a ViewPager to show mulitple images.
 
 ![](./slide2.gif)
 
