@@ -67,14 +67,13 @@ public abstract class HeaderContainer extends FrameLayout {
          */
         float tx = (mBitmapWidth * scale - mInitWidth) / 4;
         float ty = (mBitmapHeight * scale - mInitHeight) / 4;
-        System.out.println("ty = " + ty);
         matrix.postTranslate(-tx, -ty);
 
         getBgView().setImageMatrix(matrix);
     }
 
     private void updateLayoutParams(int initWidth, int initHeight) {
-        setLayoutParams(new AbsListView.LayoutParams(initWidth, initHeight));
+        setLayoutParams(new AbsListView.LayoutParams(mInitWidth, initHeight));
     }
 
     public int getInitHeight() {
