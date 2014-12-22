@@ -16,6 +16,22 @@ public class PagerHeaderContainer extends HeaderContainer {
     private int[] mResIds;
     private ViewPager mViewPager;
     private ImageView[] mImageViews;
+    private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int i, float v, int i2) {
+
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+            updateImageResource(mImageViews[i], mResIds[i]);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
+    };
 
     public PagerHeaderContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -61,22 +77,7 @@ public class PagerHeaderContainer extends HeaderContainer {
             }
         });
 
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i2) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                updateImageResource(getBgView(), mResIds[i]);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+        mViewPager.setOnPageChangeListener(mOnPageChangeListener);
     }
 
     @Override
@@ -94,5 +95,17 @@ public class PagerHeaderContainer extends HeaderContainer {
             imageViews[i] = new ImageView(getContext());
         }
         return imageViews;
+    }
+
+    public ViewPager getViewPager() {
+        return mViewPager;
+    }
+
+    public void setViewPager(ViewPager viewPager) {
+        mViewPager = viewPager;
+    }
+
+    public ViewPager.OnPageChangeListener getOnPageChangeListener() {
+        return mOnPageChangeListener;
     }
 }

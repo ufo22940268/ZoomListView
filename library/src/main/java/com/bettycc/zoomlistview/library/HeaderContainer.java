@@ -82,7 +82,7 @@ public abstract class HeaderContainer extends FrameLayout {
     }
 
     public void scale(float scale) {
-        if (!isAnimating()) {
+        if (!isAnimating() && scale >= 1) {
             scaleInternal(scale);
         }
     }

@@ -1,5 +1,6 @@
 package com.bettycc.myapplication;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bettycc.viewpagerindicator.CirclePageIndicator;
 import com.bettycc.zoomlistview.library.ZoomListView;
 
 
@@ -19,6 +21,7 @@ public class PagerListActivity extends ActionBarActivity {
             "to",
             "enlarge",
             "header",
+            "image",
             ".",
     };
 
@@ -28,8 +31,12 @@ public class PagerListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_list);
 
         ZoomListView listView = (ZoomListView) findViewById(R.id.list);
-        listView.setHeaderResources(new int[]{R.drawable.demo, R.drawable.demo1});
-        View view = getLayoutInflater().inflate(R.layout.header_container, listView.getHeaderView(), false);
+        listView.setHeaderResources(new int[]{R.drawable.demo, R.drawable.demo1, R.drawable.demo2});
+        View view = getLayoutInflater().inflate(R.layout.pager_header_container, listView.getHeaderView(), false);
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+        ViewPager viewPager = listView.getViewPager();
+        circlePageIndicator.setViewPager(viewPager);
+        circlePageIndicator.setOnPageChangeListener(listView.getPagerHeaderContainer().getOnPageChangeListener());
         listView.setHeaderContentView(view);
         listView.setAdapter(new BaseAdapter() {
             @Override

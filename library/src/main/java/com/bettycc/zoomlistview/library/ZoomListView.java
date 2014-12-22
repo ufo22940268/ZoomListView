@@ -1,6 +1,7 @@
 package com.bettycc.zoomlistview.library;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +20,22 @@ public class ZoomListView extends ListView {
 
     private Type mType;
     private AttributeSet mAttrs;
+
+    public ViewPager getViewPager() {
+        if (mHeaderView == null || !(mHeaderView instanceof PagerHeaderContainer)) {
+            throw new IllegalStateException("Call after setHeaderResouce!");
+        }
+        return ((PagerHeaderContainer) mHeaderView).getViewPager();
+    }
+
+    public PagerHeaderContainer getPagerHeaderContainer() {
+        if (mHeaderView == null || !(mHeaderView instanceof PagerHeaderContainer)) {
+            throw new IllegalStateException("Call after setHeaderResouce!");
+        }
+
+        return (PagerHeaderContainer)mHeaderView;
+    }
+
 
     enum Type {
         Single, Multi
