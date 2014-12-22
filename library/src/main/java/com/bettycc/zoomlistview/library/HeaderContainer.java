@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -19,7 +20,6 @@ import com.nineoldandroids.animation.ValueAnimator;
  */
 public class HeaderContainer extends FrameLayout {
 
-    private final ImageView mBgView;
     protected int mInitWidth;
     protected int mInitHeight;
     private float mScale = 1.0f;
@@ -40,15 +40,10 @@ public class HeaderContainer extends FrameLayout {
         if (mInitHeight == 0) {
             mInitHeight = (int) (mInitWidth * 0.6);
         }
-
-        mBgView = new ImageView(getContext());
-        getBgView().setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        addView(getBgView());
     }
 
     public void setImageResource(ImageView bgView, int resId) {
         bgView.setImageResource(resId);
-
         bgView.setScaleType(ImageView.ScaleType.MATRIX);
         mMatrix = new Matrix();
         bgView.setImageMatrix(mMatrix);
@@ -123,7 +118,7 @@ public class HeaderContainer extends FrameLayout {
     }
 
     public ImageView getBgView() {
-        return mBgView;
+        throw new UnsupportedOperationException();
     }
 
     public void setImageResources(int[] resIds) {
