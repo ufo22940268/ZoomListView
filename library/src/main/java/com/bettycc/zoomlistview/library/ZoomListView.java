@@ -31,9 +31,9 @@ public class ZoomListView extends ListView {
 
     public void setHeaderResource(int resId) {
         mType = Type.Single;
-        mHeaderView = new HeaderContainer(getContext(), mAttrs);
+        mHeaderView = new ImageHeaderContainer(getContext(), mAttrs);
         addHeaderView(mHeaderView);
-        mHeaderView.setImageResource(mHeaderView.getBgView(), resId);
+        mHeaderView.updateImageResource(mHeaderView.getBgView(), resId);
     }
 
     public void setHeaderResources(int[] resIds) {

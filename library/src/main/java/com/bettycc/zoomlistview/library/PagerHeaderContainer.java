@@ -35,7 +35,7 @@ public class PagerHeaderContainer extends HeaderContainer {
         mViewPager.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         addView(mViewPager);
 
-        setImageResource(mImageViews[0], mResIds[0]);
+        updateImageResource(mImageViews[0], mResIds[0]);
         mViewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
@@ -69,7 +69,7 @@ public class PagerHeaderContainer extends HeaderContainer {
 
             @Override
             public void onPageSelected(int i) {
-                setImageResource(getBgView(), mResIds[i]);
+                updateImageResource(getBgView(), mResIds[i]);
             }
 
             @Override

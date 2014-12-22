@@ -5,9 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
@@ -18,7 +16,7 @@ import com.nineoldandroids.animation.ValueAnimator;
 /**
  * Created by ccheng on 12/19/14.
  */
-public class HeaderContainer extends FrameLayout {
+public abstract class HeaderContainer extends FrameLayout {
 
     protected int mInitWidth;
     protected int mInitHeight;
@@ -42,7 +40,7 @@ public class HeaderContainer extends FrameLayout {
         }
     }
 
-    public void setImageResource(ImageView bgView, int resId) {
+    public void updateImageResource(ImageView bgView, int resId) {
         bgView.setImageResource(resId);
         bgView.setScaleType(ImageView.ScaleType.MATRIX);
         mMatrix = new Matrix();
@@ -117,11 +115,6 @@ public class HeaderContainer extends FrameLayout {
         return getScale() != mInitScale;
     }
 
-    public ImageView getBgView() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void setImageResources(int[] resIds) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract ImageView getBgView();
+    public abstract void setImageResources(int[] resIds);
 }
