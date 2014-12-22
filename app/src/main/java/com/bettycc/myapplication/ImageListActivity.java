@@ -28,7 +28,7 @@ public class ImageListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_list);
 
         ZoomListView listView = (ZoomListView) findViewById(R.id.list);
-        listView.setHeaderResource(R.drawable.demo1);
+        listView.setHeaderResource(R.drawable.demo);
         View view = getLayoutInflater().inflate(R.layout.header_container, listView.getHeaderView(), false);
         listView.setHeaderContentView(view);
         listView.setAdapter(new BaseAdapter() {

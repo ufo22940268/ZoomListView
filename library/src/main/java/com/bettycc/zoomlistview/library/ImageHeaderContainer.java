@@ -1,6 +1,7 @@
 package com.bettycc.zoomlistview.library;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ public class ImageHeaderContainer extends HeaderContainer {
 
         mBgView = new ImageView(context);
         mBgView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mBgView.setBackgroundColor(Color.GRAY);
         addView(mBgView);
     }
 
