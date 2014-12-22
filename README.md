@@ -9,7 +9,7 @@ The header image section can be a normal image and it can also set as a ViewPage
 
 *Add as dependency in gradle*
 
-`compile 'me.biubiubiu.zoomlistview:library:0.1'`
+`compile 'me.biubiubiu.zoomlistview:library:0.2.1'`
 
 *Define layout in xml*
 
