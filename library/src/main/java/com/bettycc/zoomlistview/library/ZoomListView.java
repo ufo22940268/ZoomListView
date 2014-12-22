@@ -1,12 +1,11 @@
 package com.bettycc.zoomlistview.library;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
-
-import com.bettycc.zoomlistview.library.HeaderContainer;
 
 /**
  * Created by ccheng on 12/19/14.
@@ -14,19 +13,51 @@ import com.bettycc.zoomlistview.library.HeaderContainer;
 public class ZoomListView extends ListView {
 
     private static final float SCALE_FACTOR = 0.4f;
-    private final HeaderContainer mHeaderView;
+    private HeaderContainer mHeaderView;
     private int mActionIndexId;
     private float mLastMotionY;
     private float mLastBottom;
 
+    private Type mType;
+    private AttributeSet mAttrs;
+
+    public ViewPager getViewPager() {
+        if (mHeaderView == null || !(mHeaderView instanceof PagerHeaderContainer)) {
+            throw new IllegalStateException("Call after setHeaderResouce!");
+        }
+        return ((PagerHeaderContainer) mHeaderView).getViewPager();
+    }
+
+    public PagerHeaderContainer getPagerHeaderContainer() {
+        if (mHeaderView == null || !(mHeaderView instanceof PagerHeaderContainer)) {
+            throw new IllegalStateException("Call after setHeaderResouce!");
+        }
+
+        return (PagerHeaderContainer)mHeaderView;
+    }
+
+
+    enum Type {
+        Single, Multi
+    }
+
     public ZoomListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mHeaderView = new HeaderContainer(getContext(), attrs);
-        addHeaderView(mHeaderView);
+        mAttrs = attrs;
     }
 
     public void setHeaderResource(int resId) {
-        mHeaderView.setImageResource(resId);
+        mType = Type.Single;
+        mHeaderView = new ImageHeaderContainer(getContext(), mAttrs);
+        addHeaderView(mHeaderView);
+        mHeaderView.updateImageResource(mHeaderView.getBgView(), resId);
+    }
+
+    public void setHeaderResources(int[] resIds) {
+        mType = Type.Multi;
+        mHeaderView = new PagerHeaderContainer(getContext(), mAttrs);
+        addHeaderView(mHeaderView);
+        mHeaderView.setImageResources(resIds);
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
@@ -17,11 +16,10 @@ import com.nineoldandroids.animation.ValueAnimator;
 /**
  * Created by ccheng on 12/19/14.
  */
-public class HeaderContainer extends FrameLayout {
+public abstract class HeaderContainer extends FrameLayout {
 
-    private final ImageView mBgView;
-    private int mInitWidth;
-    private int mInitHeight;
+    protected int mInitWidth;
+    protected int mInitHeight;
     private float mScale = 1.0f;
     private ValueAnimator mRestoreAnimator;
     private Matrix mMatrix;
@@ -36,21 +34,17 @@ public class HeaderContainer extends FrameLayout {
         mInitHeight = typedArray.getDimensionPixelSize(R.styleable.ZoomListView_headerHeight, 0);
         typedArray.recycle();
 
-        mBgView = new ImageView(getContext());
-        mBgView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        addView(mBgView);
-    }
-
-    public void setImageResource(int resId) {
-        mBgView.setImageResource(resId);
-
         mInitWidth = getResources().getDisplayMetrics().widthPixels;
         if (mInitHeight == 0) {
             mInitHeight = (int) (mInitWidth * 0.6);
         }
-        mBgView.setScaleType(ImageView.ScaleType.MATRIX);
+    }
+
+    public void updateImageResource(ImageView bgView, int resId) {
+        bgView.setImageResource(resId);
+        bgView.setScaleType(ImageView.ScaleType.MATRIX);
         mMatrix = new Matrix();
-        mBgView.setImageMatrix(mMatrix);
+        bgView.setImageMatrix(mMatrix);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
         mBitmapWidth = bitmap.getWidth();
@@ -68,11 +62,15 @@ public class HeaderContainer extends FrameLayout {
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);
 
-        float tx = (mBitmapWidth * scale - mInitWidth) / 2;
-        float ty = (mBitmapHeight * scale - mInitHeight) / 2;
+        /**
+         * TODO Don't why the factor is 4 and isn't 2.
+         */
+        float tx = (mBitmapWidth * scale - mInitWidth) / 4;
+        float ty = (mBitmapHeight * scale - mInitHeight) / 4;
+        System.out.println("ty = " + ty);
         matrix.postTranslate(-tx, -ty);
 
-        mBgView.setImageMatrix(matrix);
+        getBgView().setImageMatrix(matrix);
     }
 
     private void updateLayoutParams(int initWidth, int initHeight) {
@@ -84,7 +82,7 @@ public class HeaderContainer extends FrameLayout {
     }
 
     public void scale(float scale) {
-        if (!isAnimating()) {
+        if (!isAnimating() && scale >= 1) {
             scaleInternal(scale);
         }
     }
@@ -120,4 +118,7 @@ public class HeaderContainer extends FrameLayout {
     public boolean isScaled() {
         return getScale() != mInitScale;
     }
+
+    public abstract ImageView getBgView();
+    public abstract void setImageResources(int[] resIds);
 }

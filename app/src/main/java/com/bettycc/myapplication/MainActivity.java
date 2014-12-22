@@ -1,61 +1,28 @@
 package com.bettycc.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
-
-import com.bettycc.zoomlistview.library.ZoomListView;
 
 
 public class MainActivity extends ActionBarActivity {
-
-    private static final String[] ITEM_WORDS = {
-            "Pull",
-            "me",
-            "to",
-            "enlarge",
-            "header",
-            ".",
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        ZoomListView listView = (ZoomListView) findViewById(R.id.list);
-        listView.setHeaderResource(R.drawable.demo);
-        View view = getLayoutInflater().inflate(R.layout.header_container, listView.getHeaderView(), false);
-        listView.setHeaderContentView(view);
-        listView.setAdapter(new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return 20;
-            }
+    public void pagerHeader(View view) {
+        Intent intent = new Intent(this, PagerListActivity.class);
+        startActivity(intent);
+    }
 
-            @Override
-            public Object getItem(int position) {
-                return position;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                TextView itemView = (TextView)LayoutInflater.from(MainActivity.this).inflate(android.R.layout.simple_list_item_1,
-                        parent, false);
-                itemView.setText(ITEM_WORDS[position%ITEM_WORDS.length]);
-                return itemView;
-            }
-        });
+    public void imageHeader(View view) {
+        Intent intent = new Intent(this, ImageListActivity.class);
+        startActivity(intent);
     }
 }
