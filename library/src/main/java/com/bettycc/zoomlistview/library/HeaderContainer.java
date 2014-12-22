@@ -62,12 +62,8 @@ public abstract class HeaderContainer extends FrameLayout {
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);
 
-        /**
-         * TODO Don't why the factor is 4 and isn't 2.
-         */
-        float tx = (mBitmapWidth * scale - mInitWidth) / 4;
-        float ty = (mBitmapHeight * scale - mInitHeight) / 4;
-        System.out.println("ty = " + ty);
+        float tx = (mBitmapWidth * scale - mInitWidth) / 2;
+        float ty = 0;
         matrix.postTranslate(-tx, -ty);
 
         getBgView().setImageMatrix(matrix);
